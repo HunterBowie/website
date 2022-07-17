@@ -1,15 +1,11 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 
-const server = http.createServer((request, response) => {
-    if (request.url === '/' || request.url === '/home') {
-        response.write("hello you are home");
-        response.end()
-    }
-    else if (request.url === '/admin') {
-        response.write("welcome to admin");
-        response.end()
-    }
+app.get('/api/videos/:id', (request, response) =>{
+    response.send(request.params.id);
 });
 
-server.listen(3000);
-console.log('listening on port 3000');
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`listening on port ${port}`));
+
