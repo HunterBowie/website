@@ -1,8 +1,26 @@
+const { readFile } = require('fs');
 const express = require('express');
 const app = express();
 
-app.get('/api/videos/:id', (request, response) =>{
-    response.send(request.params.id);
+
+
+app.use(express.json());
+
+const videos = [
+    {id: 1, name: "inception"},
+    {id: 2, name: "founder"},
+
+];
+
+app.get('/api/videos/:id', (req, res) => {
+    res.send(videos.find(v => v.id === parseInt(req.params.id)));
+});
+
+app.get('/', (req, res) => {
+    readFile('./index.html', 'utf8', (error, data) => {
+        res.send(data);
+    });
+    
 });
 
 
